@@ -4,9 +4,6 @@ const jwt = require('jsonwebtoken')
 
 class Userservices {
     async createUser({name,email,password,role}) {
-       if(!name||!email||!password) {
-        throw new Error('Invalid data: Name, email, and password are required');
-       }
        if(password.length<8) {
         throw new Error('password length must be 8 character or more')
        }
@@ -19,8 +16,8 @@ class Userservices {
     })
        return user;
     }
-    async loginUser({name,email,password}) {
-        if( !email|| !password)
+    async loginUser({email,password}) {
+        if(!email|| !password)
             throw new Error('Invalid data')
         const checkUser = await User.findOne({
             email: { $regex: new RegExp(email, 'i') } ,// Không phân biệt chữ hoa/thường
@@ -41,7 +38,6 @@ class Userservices {
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '7d' }
       );
-      console.log(RefreshToken)
       return { token, RefreshToken };
     }
     async update(name,userId){

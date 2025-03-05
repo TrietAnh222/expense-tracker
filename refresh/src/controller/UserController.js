@@ -42,17 +42,16 @@ class UserController {
     }
     async userlogin(req,res){
         try {
-            const {name,email,password} = req.body
-            if ((!name && !email) || !password) {
+            const {email,password} = req.body
+            if (!email || !password) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Name or email and password are required',
+                    message: 'email and password are required',
                 });
             }
-            const {token, RefreshToken} = await UserService.loginUser({name,email,password})
+            const {token, RefreshToken} = await UserService.loginUser({email,password})
             
-            await user.updateOne(
-                { $or: [{ name: name }, { email: email }] }, // Điều kiện tìm kiếm
+            await user.updateOne( { email: email } , // Điều kiện tìm kiếm
                 { $set: { refreshToken: RefreshToken } } // Dữ liệu cần cập nhật
             );
             res.status(200).json({ token,RefreshToken });
