@@ -20,13 +20,10 @@ class Userservices {
        return user;
     }
     async loginUser({name,email,password}) {
-        if((!name && !email) || !password)
+        if( !email|| !password)
             throw new Error('Invalid data')
         const checkUser = await User.findOne({
-            $or: [
-            { name: { $regex: new RegExp(name, 'i') } }, // Không phân biệt chữ hoa/thường
-            { email: { $regex: new RegExp(email, 'i') } },
-        ],
+            email: { $regex: new RegExp(email, 'i') } ,// Không phân biệt chữ hoa/thường
     });
     if(!checkUser)
         throw new Error ('User not exist')
@@ -46,6 +43,9 @@ class Userservices {
       );
       console.log(RefreshToken)
       return { token, RefreshToken };
+    }
+    async update(name,userId){
+      
     }
 }
 module.exports = new Userservices();

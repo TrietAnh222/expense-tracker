@@ -9,4 +9,4 @@ const ExpensesSchema = new mongoose.Schema({
     Date:{type: Date, default: Date.now}
 }, { required: true }); // 👈 This makes all fields required by default
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model ('Expenses',ExpensesSchema);

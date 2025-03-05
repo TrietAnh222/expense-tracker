@@ -5,7 +5,6 @@ class UserController {
     async register(req, res) {
         try {
             const { name, email, password, role } = req.body;
-
             // Kiểm tra dữ liệu đầu vào
             if (!name || !email || !password) {
                 return res.status(400).json({
