@@ -11,5 +11,11 @@ class ExpenseServices {
         })
         return expenses
     }
+    async findbyId(userId){
+        const data = await Expenses.find({
+            userId: userId
+        })
+        return data
+    }
 }
 module.exports = new ExpenseServices()

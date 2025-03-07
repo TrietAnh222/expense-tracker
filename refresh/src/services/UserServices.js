@@ -40,8 +40,16 @@ class Userservices {
       );
       return { token, RefreshToken };
     }
-    async update(name,userId){
-      
+    async update({newname,userId}){
+      if(!newname){
+        throw new Error('need new name')
+      }
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        {name: newname},
+        {new: true}// trả về doc đã được cập nhật
+      )
+      return updatedUser
     }
 }
 module.exports = new Userservices();

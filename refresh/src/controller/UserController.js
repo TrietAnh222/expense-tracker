@@ -64,6 +64,16 @@ class UserController {
             return res.status(500).json({ error: 'Server error', message: error.message });
         }
     }
+    async update(req, res){
+        try {
+            const {newname} = req.body
+            const userId = req.user.userId
+            const updatedUser = await UserService.update({newname,userId})
+            return res.status(200).json(updatedUser)
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error', message: error.message });
+        }
+    }
 }
 
 module.exports = new UserController();
